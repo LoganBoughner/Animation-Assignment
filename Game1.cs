@@ -7,6 +7,7 @@ namespace Animation_Assignment
 {
     public class Game1 : Game
     {
+        // Logan
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         Rectangle window;
