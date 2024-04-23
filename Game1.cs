@@ -24,7 +24,9 @@ namespace Animation_Assignment
         Rectangle orangeTribbleRect;
         Vector2 orangeTribbleSpeed;
         Color randColor;
-        Random gen;
+        Color orangeTribbleColorMask;
+        Random randColorGen;
+        Random randTribbleColorGen;
 
         public Game1()
         {
@@ -50,9 +52,10 @@ namespace Animation_Assignment
             creamTribbleRect = new Rectangle(200, 100, 100, 100);
             creamTribbleSpeed = new Vector2(0, 5);
             greyTribbleRect = new Rectangle(100, 200, 100, 100);
-            greyTribbleSpeed = new Vector2(-3, 5);
+            greyTribbleSpeed = new Vector2(4, 5);
             orangeTribbleRect = new Rectangle(10, 300, 100, 100);
-            orangeTribbleSpeed = new Vector2(-3, -5);
+            orangeTribbleSpeed = new Vector2(6, 5);
+            orangeTribbleColorMask = Color.White;
 
 
             base.Initialize();
@@ -95,25 +98,34 @@ namespace Animation_Assignment
             if (greyTribbleRect.Right > window.Width || greyTribbleRect.X < 0)
             {
                 greyTribbleSpeed.X *= -1;
-                gen = new Random();
-                randColor = new Color(gen.Next(256), gen.Next(256), gen.Next(256));
+                randColorGen = new Random();
+                randColor = new Color(randColorGen.Next(256), randColorGen.Next(256), randColorGen.Next(256));
             }
 
             greyTribbleRect.Y += (int)greyTribbleSpeed.Y;
             if (greyTribbleRect.Top < window.Top || greyTribbleRect.Bottom > window.Bottom)
+            {
                 greyTribbleSpeed.Y *= -1;
+                randColorGen = new Random();
+                randColor = new Color(randColorGen.Next(256), randColorGen.Next(256), randColorGen.Next(256));
+            }
 
             orangeTribbleRect.X += (int)orangeTribbleSpeed.X;
             if (orangeTribbleRect.Right > window.Width || orangeTribbleRect.X < 0)
             {
                 orangeTribbleSpeed.X *= -1;
-
+                randTribbleColorGen = new Random();
+                orangeTribbleColorMask = new Color(randTribbleColorGen.Next(256), randTribbleColorGen.Next(256), randTribbleColorGen.Next(256));
             }
 
 
             orangeTribbleRect.Y += (int)orangeTribbleSpeed.Y;
             if (orangeTribbleRect.Top < window.Top || orangeTribbleRect.Bottom > window.Bottom)
+            {
                 orangeTribbleSpeed.Y *= -1;
+                randTribbleColorGen = new Random();
+                orangeTribbleColorMask = new Color(randTribbleColorGen.Next(256), randTribbleColorGen.Next(256), randTribbleColorGen.Next(256));
+            }
 
             base.Update(gameTime);
         }
@@ -128,7 +140,7 @@ namespace Animation_Assignment
             _spriteBatch.Draw(tribbleBrownTexture, brownTribbleRect, Color.White);
             _spriteBatch.Draw(tribbleCreamTexture, creamTribbleRect, Color.White);
             _spriteBatch.Draw(tribbleGreyTexture, greyTribbleRect, Color.White);
-            _spriteBatch.Draw(tribbleOrangeTexture, orangeTribbleRect, Color.White);
+            _spriteBatch.Draw(tribbleOrangeTexture, orangeTribbleRect, orangeTribbleColorMask);
 
             _spriteBatch.End();
 
